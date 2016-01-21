@@ -9,12 +9,19 @@
 import UIKit
 import AFNetworking
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var tableView: UITableView!
     var medias: [NSDictionary]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        //set a row height to the table view
+        tableView.rowHeight = 320
         
         let clientId = "e05c462ebd86446ea48a5af73769b602"
         let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
@@ -31,12 +38,22 @@ class PhotosViewController: UIViewController {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
                             self.medias = responseDictionary["data"] as? [NSDictionary]
+                            self.tableView.reloadData()
                     }
                 }
         });
         task.resume()
-        
-        // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return medias?.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("MediaCell", forIndexPath: indexPath ) as? MediaCell
+        let imageURL = NSURL(string: medias[indexPath.row]["images"]!["standard_resolution"]!!["url"]!! as! String)
+        cell?.feedImageView.setImageWithURL(imageURL!)
+        return cell!
     }
 
     override func didReceiveMemoryWarning() {
