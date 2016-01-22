@@ -10,15 +10,23 @@ import UIKit
 import AFNetworking
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    
 
     @IBOutlet weak var tableView: UITableView!
     var medias: [NSDictionary]!
+    
+    let CellIdentifier = "TableViewCell"
+    let HeaderViewIdentifier = "TableViewHeaderView"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: CellIdentifier)
+        tableView.registerClass(UITableViewHeaderFooterView.self , forHeaderFooterViewReuseIdentifier: HeaderViewIdentifier)
         
         //set a row height to the table view
         tableView.rowHeight = 320
@@ -46,13 +54,57 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return medias?.count ?? 0
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier(HeaderViewIdentifier)! as UITableViewHeaderFooterView
+//        header.textLabel!.text = medias[section][0] as? String
+//        return header
+        
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        //headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+        headerView.backgroundColor = UIColor.yellowColor()
+        
+        //uiview - 1).label, 2).image
+        //1) uiview - label  2) uiview - image
+        let profileView = UIView(frame: CGRect(x: 0, y: 5, width: 320, height: 50))
+        let profileLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 320, height: 50))
+        profileLabel.text = medias[section].valueForKeyPath("user.username") as? String
+        let profileImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
+        profileView.backgroundColor = UIColor.redColor()
+        profileView.clipsToBounds = true
+        profileView.layer.cornerRadius = 5;
+        profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).CGColor
+        //profileView.layer.borderWidth = 1;
+        
+        // Use the section number to get the right URL
+        let imageURL = NSURL(string: medias[section].valueForKeyPath("user.profile_picture") as! String )
+        profileImageView.setImageWithURL( imageURL! )
+        profileView.addSubview(profileImageView)
+        profileView.addSubview(profileLabel)
+        headerView.addSubview(profileView)
+        
+        
+        
+        // Add a UILabel for the username here
+        
+        return headerView
+
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MediaCell", forIndexPath: indexPath ) as? MediaCell
         //let imageURL = NSURL(string: medias[indexPath.row]["images"]?["standard_resolution"]??["url"]?! as! String)
-        let imageURL = NSURL( string: medias[indexPath.row].valueForKeyPath("images.standard_resolution.url") as! String)
+        let imageURL = NSURL( string: medias[indexPath.section].valueForKeyPath("images.standard_resolution.url") as! String)
         cell?.feedImageView.setImageWithURL(imageURL!)
         return cell!
     }
