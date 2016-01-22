@@ -51,7 +51,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MediaCell", forIndexPath: indexPath ) as? MediaCell
-        let imageURL = NSURL(string: medias[indexPath.row]["images"]!["standard_resolution"]!!["url"]!! as! String)
+        let imageURL = NSURL(string: medias[indexPath.row]["images"]?["standard_resolution"]??["url"]?! as! String)
         cell?.feedImageView.setImageWithURL(imageURL!)
         return cell!
     }
