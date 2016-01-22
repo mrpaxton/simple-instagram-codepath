@@ -65,8 +65,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+
    
-        let profileView = UIView(frame: CGRect(x: 0, y: 5, width: 320, height: 50))
+        let profileView = UIView(frame: CGRect(x: 0, y: -5, width: 320, height: 50))
         let profileLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 320, height: 50))
         profileLabel.text = medias[section].valueForKeyPath("user.username") as? String
         let profileImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
@@ -84,16 +85,14 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         
         return headerView
-
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 60
+        return 40
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MediaCell", forIndexPath: indexPath ) as? MediaCell
-        //let imageURL = NSURL(string: medias[indexPath.row]["images"]?["standard_resolution"]??["url"]?! as! String)
         let imageURL = NSURL( string: medias[indexPath.section].valueForKeyPath("images.standard_resolution.url") as! String)
         cell?.feedImageView.setImageWithURL(imageURL!)
         return cell!
@@ -103,7 +102,6 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
