@@ -62,21 +62,14 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier(HeaderViewIdentifier)! as UITableViewHeaderFooterView
-//        header.textLabel!.text = medias[section][0] as? String
-//        return header
         
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
-        //headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
-        headerView.backgroundColor = UIColor.yellowColor()
-        
-        //uiview - 1).label, 2).image
-        //1) uiview - label  2) uiview - image
+        headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
+   
         let profileView = UIView(frame: CGRect(x: 0, y: 5, width: 320, height: 50))
         let profileLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 320, height: 50))
         profileLabel.text = medias[section].valueForKeyPath("user.username") as? String
         let profileImageView = UIImageView(frame: CGRect(x: 10, y: 10, width: 30, height: 30))
-        profileView.backgroundColor = UIColor.redColor()
         profileView.clipsToBounds = true
         profileView.layer.cornerRadius = 5;
         profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).CGColor
@@ -89,9 +82,6 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         profileView.addSubview(profileLabel)
         headerView.addSubview(profileView)
         
-        
-        
-        // Add a UILabel for the username here
         
         return headerView
 
