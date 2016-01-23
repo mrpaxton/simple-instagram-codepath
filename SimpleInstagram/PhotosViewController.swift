@@ -10,8 +10,6 @@ import UIKit
 import AFNetworking
 
 class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    
 
     @IBOutlet weak var tableView: UITableView!
     var medias: [NSDictionary]!
@@ -31,6 +29,14 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         //set a row height to the table view
         tableView.rowHeight = 320
         
+        //use a closure to call the instagram API in the callInstagramAPI() method
+        callInstagramAPI{ (photos : [NSDictionary]?) -> () in
+            self.medias = photos
+            self.tableView.reloadData()
+        }
+    }
+    
+    func callInstagramAPI( success: ([NSDictionary]?) -> () ) {
         let clientId = "e05c462ebd86446ea48a5af73769b602"
         let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
         let request = NSURLRequest(URL: url!)
@@ -45,8 +51,7 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
                 if let data = dataOrNil {
                     if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                         data, options:[]) as? NSDictionary {
-                            self.medias = responseDictionary["data"] as? [NSDictionary]
-                            self.tableView.reloadData()
+                            success( responseDictionary["data"] as? [NSDictionary] )
                     }
                 }
         });
