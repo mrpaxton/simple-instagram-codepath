@@ -47,6 +47,16 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         )
     }
     
+    func fadeInImageOnNetworkCall<T: UIView>(request: NSURLRequest, placeholderImage: UIImage?, duration: NSTimeInterval, cell: T ) -> T? {
+        if let mediaCell = cell as? MediaCell {
+            mediaCell.feedImageView.setImageWithURLRequest(request, placeholderImage: placeholderImage, success: { (request, response, imageData) -> Void in
+                UIView.transitionWithView(mediaCell.feedImageView, duration: duration, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: { mediaCell.feedImageView.image = imageData }, completion: nil   )
+                }, failure: nil)
+            return mediaCell as? T
+        }
+        return nil
+    }
+    
     func callInstagramAPI( success: ([NSDictionary]?) -> () ) {
         let clientId = "e05c462ebd86446ea48a5af73769b602"
         let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
@@ -118,8 +128,11 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MediaCell", forIndexPath: indexPath ) as? MediaCell
         let imageURL = NSURL( string: medias[indexPath.section].valueForKeyPath("images.standard_resolution.url") as! String)
-        cell?.feedImageView.setImageWithURL(imageURL!)
-        return cell!
+        let request = NSURLRequest(URL: imageURL!)
+        let placeholderImage = UIImage(named: "vintage-camera")
+        let mediaCell = fadeInImageOnNetworkCall(request, placeholderImage: placeholderImage, duration: 0.20, cell: cell!)
+        //cell?.feedImageView.setImageWithURL(imageURL!)
+        return mediaCell!
     }
 
     override func didReceiveMemoryWarning() {
