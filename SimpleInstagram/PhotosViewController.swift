@@ -62,11 +62,14 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
         headerView.backgroundColor = UIColor(white: 1, alpha: 0.9)
-
-   
+        let profileView = makeProfileView(section)
+        headerView.addSubview(profileView!)
+        return headerView
+    }
+    
+    func makeProfileView(section: Int) -> UIView? {
         let profileView = UIView(frame: CGRect(x: 0, y: -5, width: 320, height: 50))
         let profileLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 320, height: 50))
         profileLabel.text = medias[section].valueForKeyPath("user.username") as? String
@@ -74,17 +77,14 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         profileView.clipsToBounds = true
         profileView.layer.cornerRadius = 5;
         profileView.layer.borderColor = UIColor(white: 0.7, alpha: 0.8).CGColor
-        //profileView.layer.borderWidth = 1;
         
         // Use the section number to get the right URL
         let imageURL = NSURL(string: medias[section].valueForKeyPath("user.profile_picture") as! String )
         profileImageView.setImageWithURL( imageURL! )
         profileView.addSubview(profileImageView)
         profileView.addSubview(profileLabel)
-        headerView.addSubview(profileView)
         
-        
-        return headerView
+        return profileView
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
