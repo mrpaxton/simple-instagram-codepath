@@ -17,6 +17,8 @@ The following features are complete:
 - [x] User profile images and name
 - [x] Header view that includes profile view
 - [x] Custom AppIcon and launch screen
+- [x] Image faded in upon network request
+- [x] Show loading state using MBProgressHUD
 
 Library used:
 - AFNetworking
