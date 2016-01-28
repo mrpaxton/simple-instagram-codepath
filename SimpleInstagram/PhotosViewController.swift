@@ -22,6 +22,24 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
     var isMoreDataLoading = false
     var loadingMoreView: InfiniteScrollActivityView?
     
+    // property for refresh control
+    var refreshControl: UIRefreshControl!
+    
+    
+    // pull to refresh
+    func pullToRefreshControl(){
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+    }
+    
+    func onRefresh(){
+        delay(2, closure: {
+            self.refreshControl.endRefreshing()
+        })
+    }
+    
+    
     //infinite scroll
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if !isMoreDataLoading {
@@ -104,6 +122,9 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         //set a row height to the table view
         tableView.rowHeight = 320
+        
+        // call the pull to refresh control function
+        pullToRefreshControl()
         
         //setup the infnite scroll view
         setupInfiniteScrollView()
