@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CAC68DFB4F4237194F3A66B4 /* Pods_SimpleInstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D73D2B77520533D2C34E071 /* Pods_SimpleInstagram.framework */; };
+		D03477801C5A2013007C02B4 /* InfiniteScrollActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D034777F1C5A2013007C02B4 /* InfiniteScrollActivityView.swift */; };
 		D09A50AA1C506566001BF17C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A50A91C506566001BF17C /* AppDelegate.swift */; };
 		D09A50AC1C506566001BF17C /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A50AB1C506566001BF17C /* PhotosViewController.swift */; };
 		D09A50AF1C506566001BF17C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09A50AD1C506566001BF17C /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 		5D73D2B77520533D2C34E071 /* Pods_SimpleInstagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SimpleInstagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		747223A53186ACC064D485F7 /* Pods-SimpleInstagram.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleInstagram.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleInstagram/Pods-SimpleInstagram.release.xcconfig"; sourceTree = "<group>"; };
 		A8004663C96B60917B909E18 /* Pods-SimpleInstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleInstagram.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleInstagram/Pods-SimpleInstagram.debug.xcconfig"; sourceTree = "<group>"; };
+		D034777F1C5A2013007C02B4 /* InfiniteScrollActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfiniteScrollActivityView.swift; sourceTree = "<group>"; };
 		D09A50A61C506566001BF17C /* SimpleInstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleInstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D09A50A91C506566001BF17C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D09A50AB1C506566001BF17C /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				D09A50AB1C506566001BF17C /* PhotosViewController.swift */,
 				D0E615791C5A1366005ACB91 /* PhotoDetailsViewController.swift */,
+				D034777F1C5A2013007C02B4 /* InfiniteScrollActivityView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D03477801C5A2013007C02B4 /* InfiniteScrollActivityView.swift in Sources */,
 				D0E6157A1C5A1366005ACB91 /* PhotoDetailsViewController.swift in Sources */,
 				D09A50AC1C506566001BF17C /* PhotosViewController.swift in Sources */,
 				D0B7A24E1C50C69800F54961 /* MediaCell.swift in Sources */,

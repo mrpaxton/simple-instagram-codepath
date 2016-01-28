@@ -10,13 +10,88 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PhotosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var medias: [NSDictionary]!
     
     let CellIdentifier = "TableViewCell"
     let HeaderViewIdentifier = "TableViewHeaderView"
+    
+    //flag for infinite scroll
+    var isMoreDataLoading = false
+    var loadingMoreView: InfiniteScrollActivityView?
+    
+    //infinite scroll
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if !isMoreDataLoading {
+            //calculate the position of one screen length before the bottom of the results
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            
+            //when the user has scrolled past the threshold, start requesting
+            if scrollView.contentOffset.y > scrollOffsetThreshold && tableView.dragging {
+                isMoreDataLoading = true
+                
+                let frame = CGRectMake(0, tableView.contentSize.height, tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight)
+                loadingMoreView?.frame = frame
+                loadingMoreView!.startAnimating()
+                
+                //load more data
+                loadMoreData()
+            }
+        }
+    }
+    
+    func loadMoreData() {
+        //TODO: refactor the setups for the request later
+        let clientId = "e05c462ebd86446ea48a5af73769b602"
+        let url = NSURL(string:"https://api.instagram.com/v1/media/popular?client_id=\(clientId)")
+        let request = NSURLRequest(URL: url!)
+        
+        let session = NSURLSession(
+            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
+            delegate: nil,
+            delegateQueue: NSOperationQueue.mainQueue()
+        )
+        
+        let task: NSURLSessionDataTask = session.dataTaskWithRequest(request,
+            completionHandler: { (dataOrNil, response, error) in
+                //update the flag
+                self.isMoreDataLoading = false
+                
+                //stop the loading indicator
+                self.loadingMoreView!.stopAnimating()
+                
+                //use the new data to update the data source
+                if let data = dataOrNil {
+                    if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
+                        data, options:[]) as? NSDictionary {
+                        self.medias = responseDictionary["data"] as? [NSDictionary]
+                    }
+                }
+                
+                //reload the table view because we have new data
+                self.tableView.reloadData()
+            }
+        )
+        task.resume()
+    }
+    
+    func setupInfiniteScrollView() {
+        let frame = CGRectMake(0, tableView.contentSize.height,
+            tableView.bounds.size.width,
+            InfiniteScrollActivityView.defaultHeight
+        )
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.hidden = true
+        tableView.addSubview( loadingMoreView! )
+        
+        var insets = tableView.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        tableView.contentInset = insets
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +104,10 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         
         //set a row height to the table view
         tableView.rowHeight = 320
+        
+        //setup the infnite scroll view
+        setupInfiniteScrollView()
+        
         
         //use a closure to call the instagram API in the callInstagramAPI() method
         callInstagramAPI{ (photos : [NSDictionary]?) -> () in
@@ -148,9 +227,6 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         let vc = segue.destinationViewController as! PhotoDetailsViewController
         let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
         vc.photoURL = NSURL( string: medias[indexPath!.section].valueForKeyPath("images.standard_resolution.url") as! String)
-        
-        
-        
     }
 
 }
