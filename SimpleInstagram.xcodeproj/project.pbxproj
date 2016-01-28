@@ -14,6 +14,7 @@
 		D09A50B11C506566001BF17C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D09A50B01C506566001BF17C /* Assets.xcassets */; };
 		D09A50B41C506566001BF17C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09A50B21C506566001BF17C /* LaunchScreen.storyboard */; };
 		D0B7A24E1C50C69800F54961 /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B7A24D1C50C69800F54961 /* MediaCell.swift */; };
+		D0E6157A1C5A1366005ACB91 /* PhotoDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E615791C5A1366005ACB91 /* PhotoDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		D09A50B31C506566001BF17C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D09A50B51C506566001BF17C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0B7A24D1C50C69800F54961 /* MediaCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
+		D0E615791C5A1366005ACB91 /* PhotoDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +82,8 @@
 		D09A50A81C506566001BF17C /* SimpleInstagram */ = {
 			isa = PBXGroup;
 			children = (
+				D0E6157B1C5A137E005ACB91 /* Views */,
 				D09A50A91C506566001BF17C /* AppDelegate.swift */,
-				D09A50AB1C506566001BF17C /* PhotosViewController.swift */,
 				D09A50AD1C506566001BF17C /* Main.storyboard */,
 				D09A50B01C506566001BF17C /* Assets.xcassets */,
 				D09A50B21C506566001BF17C /* LaunchScreen.storyboard */,
@@ -89,6 +91,15 @@
 				D0B7A24D1C50C69800F54961 /* MediaCell.swift */,
 			);
 			path = SimpleInstagram;
+			sourceTree = "<group>";
+		};
+		D0E6157B1C5A137E005ACB91 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D09A50AB1C506566001BF17C /* PhotosViewController.swift */,
+				D0E615791C5A1366005ACB91 /* PhotoDetailsViewController.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0E6157A1C5A1366005ACB91 /* PhotoDetailsViewController.swift in Sources */,
 				D09A50AC1C506566001BF17C /* PhotosViewController.swift in Sources */,
 				D0B7A24E1C50C69800F54961 /* MediaCell.swift in Sources */,
 				D09A50AA1C506566001BF17C /* AppDelegate.swift in Sources */,

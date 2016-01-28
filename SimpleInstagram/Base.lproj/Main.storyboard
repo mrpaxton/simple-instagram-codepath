@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="g8k-xv-kLr">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -19,11 +19,11 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MediaCell" rowHeight="257" id="I19-ND-KYw" customClass="MediaCell" customModule="SimpleInstagram" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="257"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MediaCell" rowHeight="257" id="I19-ND-KYw" customClass="MediaCell" customModule="SimpleInstagram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="320" height="257"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I19-ND-KYw" id="cIU-01-5IU">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="256.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="256.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlighted="YES" id="aSd-hh-Whd">
@@ -37,6 +37,7 @@
                                         <animations/>
                                         <connections>
                                             <outlet property="feedImageView" destination="aSd-hh-Whd" id="oLn-3f-p0D"/>
+                                            <segue destination="hKJ-V2-BhA" kind="push" id="uAv-HA-oQF"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -45,11 +46,57 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="1hR-5r-e77"/>
                     <connections>
                         <outlet property="tableView" destination="9Hi-pJ-Rkv" id="UCd-V5-kzb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="437" y="326"/>
+        </scene>
+        <!--Photo Details View Controller-->
+        <scene sceneID="ztp-Gt-wZd">
+            <objects>
+                <viewController id="hKJ-V2-BhA" customClass="PhotoDetailsViewController" customModule="SimpleInstagram" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WoE-hC-pJM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="LpD-At-maq">
+                                <rect key="frame" x="0.0" y="78" width="320" height="324"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GwN-af-TIi"/>
+                    <connections>
+                        <outlet property="photoImageView" destination="LpD-At-maq" id="arA-DZ-78O"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cAA-iO-dDf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="822" y="326"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tlf-GN-acU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="g8k-xv-kLr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="26V-fm-BhL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="dnH-Jr-ayK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V9t-BK-JzI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-95" y="326"/>
         </scene>

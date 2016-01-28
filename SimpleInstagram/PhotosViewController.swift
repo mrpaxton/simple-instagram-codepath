@@ -134,10 +134,23 @@ class PhotosViewController: UIViewController, UITableViewDataSource, UITableView
         //cell?.feedImageView.setImageWithURL(imageURL!)
         return mediaCell!
     }
+    
+    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let vc = segue.destinationViewController as! PhotoDetailsViewController
+        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+        vc.photoURL = NSURL( string: medias[indexPath!.section].valueForKeyPath("images.standard_resolution.url") as! String)
+        
+        
+        
     }
 
 }
